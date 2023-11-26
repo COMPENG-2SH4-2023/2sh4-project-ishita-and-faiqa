@@ -8,7 +8,7 @@ GameMechs::GameMechs()
     exitFlag = false;
     loseFlag = false;  
     score = 0; 
-    input = NULL; 
+    input = 0; 
 
 }
 
@@ -19,7 +19,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false;
     loseFlag = false;  
     score = 0; 
-    input = NULL; 
+    input = 0; 
 }
 
 // do you need a destructor?
