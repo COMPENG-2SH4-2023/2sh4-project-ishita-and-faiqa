@@ -64,34 +64,34 @@ void Player::movePlayer()
     switch(myDir)
     {
         case UP:
-            objPos.y--;
-            if(objPos.y <= 0)
+            playerPos.y--;
+            if(playerPos.y <= 0)
             {
-                objPos.y = y-2;
+                playerPos.y = y-2;
             }
             break;
 
         case DOWN:
-            objPos.y++;
-            if(objPos.y >= y)
+            playerPos.y++;
+            if(playerPos.y >= y)
             {
-                objPos.y = 1;
+                playerPos.y = 1;
             }
             break;
 
         case LEFT:
-            objPos.x--;
-            if(objPos.x <= 0)
+            playerPos.x--;
+            if(playerPos.x <= 0)
             {
-                objPos.x = x-2;
+                playerPos.x = x-2;
             }
             break;
 
         case RIGHT:
-            objPos.x++;
-            if(objPos.x >= x)
+            playerPos.x++;
+            if(playerPos.x >= x)
             {
-                objPos.x = 1;
+                playerPos.x = 1;
             }
             break;
 

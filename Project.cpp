@@ -9,6 +9,8 @@ using namespace std;
 
 bool exitFlag;
 
+Player *myPlayer;
+
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -48,17 +50,40 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   
+   myPlayer->updatePlayerDir();
 }
 
 void RunLogic(void)
 {
-    
+    myPlayer->movePlayer();
 }
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+
+    int i,j;
+
+    MacUILib_clearScreen();
+    for(j = 0; j < b; j++)
+    {
+        for(i = 0; i < a; i++)
+        {
+            char printChar = ' ';
+
+            if(j == 0 || i == 0 || j == b-1 || i == a-1)
+            {
+                printChar = '#';
+            }
+            else if(j == myPlayer->playerPos.y && i == myPlayer->playerPos.x)
+            {
+               printChar = myPlayer->playerPos.symbol;
+               
+            }
+            MacUILib_printf("%c", printChar);
+        }
+        MacUILib_printf("\n");
+    } 
+   
 
 }
 
@@ -73,4 +98,4 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
-}
+}S
