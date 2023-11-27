@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
 
 
 using namespace std;
@@ -11,10 +12,11 @@ using namespace std;
 
 //Global Variables 
 GameMechs *myGM; 
+Player *myPlayer;
+Food *genFood; 
 
 bool exitFlag;
 
-Player *myPlayer;
 
 void Initialize(void);
 void GetInput(void);
@@ -50,7 +52,14 @@ void Initialize(void)
 
     myGM = new GameMechs(26,16); 
     myPlayer = new Player(myGM);
-    //myPos.setObjPos(5,5,'*');
+    genFood = new Food(); 
+        
+
+    objPos returnPlayerPos;
+    myPlayer->getPlayerPos(returnPlayerPos);
+
+    genFood -> generateFood(returnPlayerPos); // good for now, i have to wait on ishita
+
 }
 
 void GetInput(void)
@@ -62,6 +71,7 @@ void RunLogic(void)
 {
     myPlayer -> updatePlayerDir(); 
     myPlayer -> movePlayer();
+    myGM -> clearInput(); 
 }
 
 void DrawScreen(void)
@@ -69,6 +79,7 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
   
     int y, x; 
+
     objPos returnPlayerPos;
     myPlayer->getPlayerPos(returnPlayerPos);
 
@@ -116,6 +127,7 @@ void CleanUp(void)
     
     delete myGM; 
     delete myPlayer; 
+    delete genFood; 
   
     MacUILib_uninit();
 }

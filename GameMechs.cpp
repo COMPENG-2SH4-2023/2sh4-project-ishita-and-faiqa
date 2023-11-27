@@ -1,6 +1,8 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
+using namespace std;
+
 GameMechs::GameMechs()
 {
     boardSizeX = 30; 
@@ -72,6 +74,7 @@ void GameMechs::setExitTrue()
 void GameMechs::setLoseFlag()
 {
     loseFlag = 1; 
+    //cout << "Lose flag set. Game Over" << endl; 
 }
 
 void GameMechs::setInput(char this_input)
@@ -86,6 +89,7 @@ void GameMechs::clearInput()
 
 void GameMechs::incrementScore()
 {
-    score += 1; 
+    score++;
+    //cout << "New Score" << score << endl;  
 }
 
