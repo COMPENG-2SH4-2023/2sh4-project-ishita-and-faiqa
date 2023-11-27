@@ -71,7 +71,7 @@ void DrawScreen(void)
     objPos returnPlayerPos;
     myPlayer->getPlayerPos(returnPlayerPos);
 
-    MacUILib_printf("Board Size %dx%d and %d \n ",
+    MacUILib_printf("Board Size %dx%d\n",
                     myGM -> getBoardSizeX(),
                     myGM -> getBoardSizeY());
 
@@ -107,6 +107,9 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
+    
+    delete myGM; 
+    delete myPlayer; 
   
     MacUILib_uninit();
 }
