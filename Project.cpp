@@ -55,7 +55,7 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   
+   myGM -> getInput(); 
 }
 
 void RunLogic(void)
@@ -66,7 +66,33 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
+  
+int y, x; 
+    MacUILib_printf("Board Size %dx%d and %d \n ",
+                    myGM -> getBoardSizeX(),
+                    myGM -> getBoardSizeY());
 
+
+ /*    for(y = 0; y < myGM -> getBoardSizeY(); y++)
+    {
+        for(x = 0; x < myGM -> getBoardSizeX(); x++)
+        {
+            char printChar = ' ';
+
+            if(y == 0 || x == 0 || x == myGM -> getBoardSizeX() - 1|| y == myGM -> getBoardSizeY() - 1)
+            {
+                printChar = '#';
+            }
+            else if(y == myPlayer->playerPos.y && x == myPlayer->playerPos.x)
+            {
+               printChar = myPlayer->playerPos.symbol;
+               
+            }
+            MacUILib_printf("%c", printChar);
+        }
+        MacUILib_printf("\n");
+    } 
+} */
 }
 
 void LoopDelay(void)
