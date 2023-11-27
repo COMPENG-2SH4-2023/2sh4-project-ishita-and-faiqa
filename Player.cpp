@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "ObjPos.h"
+#include "objPos.h"
 
 Player::Player(GameMechs* thisGMRef)
 {
@@ -30,6 +30,9 @@ void Player::updatePlayerDir()
 
     switch(input)
     {
+        case 27:  // exit
+            mainGameMechsRef -> setExitTrue(); 
+            break;
         case 'w':
             if(myDir != UP && myDir != DOWN)
                 myDir = UP;

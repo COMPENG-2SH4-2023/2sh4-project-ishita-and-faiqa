@@ -60,7 +60,8 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    myPlayer->movePlayer();
+    myPlayer -> updatePlayerDir(); 
+    myPlayer -> movePlayer();
 }
 
 void DrawScreen(void)
@@ -71,9 +72,9 @@ void DrawScreen(void)
     objPos returnPlayerPos;
     myPlayer->getPlayerPos(returnPlayerPos);
 
-    MacUILib_printf("Board Size %dx%d\n",
-                    myGM -> getBoardSizeX(),
-                    myGM -> getBoardSizeY());
+   // MacUILib_printf("Board Size %dx%d\n",
+                  //  myGM -> getBoardSizeX(),
+                  //  myGM -> getBoardSizeY());
 
 
     for(y = 0; y < myGM -> getBoardSizeY(); y++)
@@ -96,7 +97,12 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     } 
 
+
+    MacUILib_printf("Welcome to Moving Player: Using 'W' to move UP, 'A' to move LEFT, 'S' to move DOWN, and 'D' to move RIGHT!\n"); 
+    MacUILib_printf("To exit the game, press ESC. "); 
+
 }
+
 
 void LoopDelay(void)
 {
