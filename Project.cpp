@@ -67,13 +67,16 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();    
   
-int y, x; 
+    int y, x; 
+    objPos returnPlayerPos;
+    myPlayer->getPlayerPos(returnPlayerPos);
+
     MacUILib_printf("Board Size %dx%d and %d \n ",
                     myGM -> getBoardSizeX(),
                     myGM -> getBoardSizeY());
 
 
- /*    for(y = 0; y < myGM -> getBoardSizeY(); y++)
+    for(y = 0; y < myGM -> getBoardSizeY(); y++)
     {
         for(x = 0; x < myGM -> getBoardSizeX(); x++)
         {
@@ -83,16 +86,16 @@ int y, x;
             {
                 printChar = '#';
             }
-            else if(y == myPlayer->playerPos.y && x == myPlayer->playerPos.x)
+            else if(y == returnPlayerPos.y && x == returnPlayerPos.x)
             {
-               printChar = myPlayer->playerPos.symbol;
+               printChar = returnPlayerPos.symbol;
                
             }
             MacUILib_printf("%c", printChar);
         }
         MacUILib_printf("\n");
     } 
-} */
+
 }
 
 void LoopDelay(void)
