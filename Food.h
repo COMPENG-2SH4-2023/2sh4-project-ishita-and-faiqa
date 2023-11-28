@@ -18,7 +18,7 @@ class Food
     GameMechs *mainGameMechsRef; 
 
     public: 
-    Food();
+    Food(GameMechs* thisGMRef);
     ~Food(); 
 
     void generateFood(objPos blockOff); 

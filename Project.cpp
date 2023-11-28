@@ -38,7 +38,9 @@ int main(void)
         RunLogic();
         DrawScreen();
         LoopDelay();
+
     }
+
 
     CleanUp();
 
@@ -52,13 +54,14 @@ void Initialize(void)
 
     myGM = new GameMechs(26,16); 
     myPlayer = new Player(myGM);
-    genFood = new Food(); 
-        
-
-   // objPos returnPlayerPos;
-   // myPlayer->getPlayerPos(returnPlayerPos);
-
-   // genFood -> generateFood(returnPlayerPos); // good for now, i have to wait on ishita
+    genFood = new Food(myGM); 
+    
+    srand(time(NULL)); 
+    
+    objPos returnPlayerPos;
+    myPlayer->getPlayerPos(returnPlayerPos);
+    genFood -> generateFood(returnPlayerPos);
+ // good for now, i have to wait on ishita
 
 }
 
@@ -72,7 +75,17 @@ void RunLogic(void)
     myPlayer -> updatePlayerDir(); 
     myPlayer -> movePlayer();
     
+    objPos returnPlayerPos;
+    myPlayer->getPlayerPos(returnPlayerPos);
 
+    objPos FoodPos;
+    genFood->getFoodPos(FoodPos);
+
+    if (returnPlayerPos.isPosEqual(&FoodPos))
+    {
+        genFood->generateFood(returnPlayerPos);
+        myGM->incrementScore(); 
+    }
 // THIS IS FOR DEBUGGING PURPOSES KEEP HERE! 
 
 /*     switch (myGM -> getInput())
@@ -102,6 +115,9 @@ void DrawScreen(void)
     objPos returnPlayerPos;
     myPlayer->getPlayerPos(returnPlayerPos);
 
+    objPos FoodPos; 
+    genFood -> getFoodPos(FoodPos); 
+
    // MacUILib_printf("Board Size %dx%d\n",
                   //  myGM -> getBoardSizeX(),
                   //  myGM -> getBoardSizeY());
@@ -121,6 +137,10 @@ void DrawScreen(void)
             {
                printChar = returnPlayerPos.symbol;
                
+            }
+            else if(x == FoodPos.x && y == FoodPos.y)
+            {
+                printChar = FoodPos.symbol; 
             }
             MacUILib_printf("%c", printChar);
         }
