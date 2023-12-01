@@ -54,13 +54,14 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs(26,16); 
-    myPlayer = new Player(myGM);
+    myPlayer = new Player(myGM, genFood);
     genFood = new Food(myGM); 
     
     srand(time(NULL)); 
 
 
-    objPos tempPos{1, 1, 'o'}; // we need to randomize later
+    objPos tempPos(1, 1, 'o'); 
+    // we need to randomize later
     genFood -> generateFood(tempPos);
  // good for now, i have to wait on ishita
 

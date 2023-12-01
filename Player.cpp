@@ -2,9 +2,10 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
     mainGameMechsRef = thisGMRef;
+    mainFoodRef = thisFoodRef;
     myDir = STOP;
 
     // more actions to be included
