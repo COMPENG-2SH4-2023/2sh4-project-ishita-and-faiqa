@@ -54,7 +54,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs(26,16); 
-    myPlayer = new Player(myGM, genFood);
+    myPlayer = new Player(myGM);
     genFood = new Food(myGM); 
     
     srand(time(NULL)); 

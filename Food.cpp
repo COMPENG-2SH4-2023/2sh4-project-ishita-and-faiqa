@@ -26,7 +26,7 @@ void Food::generateFood(objPos blockOff)
 
         FoodPos.x = (rand() % (mainGameMechsRef -> getBoardSizeX() - 2)) + 1; 
         FoodPos.y = (rand() % (mainGameMechsRef -> getBoardSizeY() - 2)) + 1; 
-    } while (isFoodOverlap(playerPosList));
+    } while (FoodPos.isPosEqual(&blockOff));
 
  /*        FoodPos.x = (rand() % (mainGameMechsRef -> getBoardSizeX() - 2)) + 1; 
         FoodPos.y = (rand() % (mainGameMechsRef -> getBoardSizeY() - 2)) + 1; 

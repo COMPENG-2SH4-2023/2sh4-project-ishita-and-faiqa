@@ -1,21 +1,18 @@
 #include "Player.h"
 #include "objPos.h"
 
-Player::Player(GameMechs* thisGMRef, Food* foodRef)
+Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
-    mainfoodRef = foodRef; 
     myDir = STOP;
 
     // more actions to be included
     objPos tempPos;
-    objPos foodPos; 
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
                       mainGameMechsRef->getBoardSizeY()/2,
                       '*');
   
     playerPosList = new objPosArrayList(); 
-    
     playerPosList->insertHead(tempPos);
 
     //for debugging purposes 
@@ -77,19 +74,9 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-/*     objPos newHead;
+    objPos newHead;
     objPos currentHead;
     playerPosList->getHeadElement(currentHead);
-
-    objPos foodPosition;
-    mainfoodRef->getFoodPos(foodPosition);  */
-    
-    objPosArrayList* playerPosList = myPlayer->getPlayerPos();
-    objPos currentHead;
-    playerPosList->getHeadElement(currentHead);
-
-    objPosArrayList* foodPosList = mainfoodRef->getFoodPos(); 
-
 
     int x = mainGameMechsRef->getBoardSizeX();
     int y = mainGameMechsRef->getBoardSizeY();
@@ -132,30 +119,12 @@ void Player::movePlayer()
         default:
             break;
     }
+    // new current head should be inserted to the head of the list
+    playerPosList->insertHead(currentHead);
 
-    if(currentHead.isPosEqual(&foodPosition))
-    {
-        playerPosList->insertHead(currentHead);
-        mainfoodRef->generateFood(playerPosList);
-    }
-    else
-    {
-        // new current head should be inserted to the head of the list
-        playerPosList->insertHead(currentHead);
 
-        // then remove head
-        playerPosList->removeTail();
-    }
-    
+    // then remove head
+    playerPosList->removeTail();
 
 }
 
-bool Player::checkFoodCosumption()
-{
-
-} 
-
-void Player::increasePlayerLength()
-{
-
-}

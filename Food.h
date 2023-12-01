@@ -21,8 +21,9 @@ class Food
     Food(GameMechs* thisGMRef);
     ~Food(); 
 
-    void generateFood(objPosArrayList* playerPosList); 
-    objPosArrayList* getFoodPos(); 
+    void generateFood(objPos blockOff); 
+    void getFoodPos(objPos &returnPos); 
+
 }; 
 
 #endif
