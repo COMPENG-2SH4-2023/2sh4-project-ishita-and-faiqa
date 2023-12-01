@@ -77,12 +77,18 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-    objPos newHead;
+/*     objPos newHead;
     objPos currentHead;
     playerPosList->getHeadElement(currentHead);
 
     objPos foodPosition;
-    mainfoodRef->getFoodPos(foodPosition); 
+    mainfoodRef->getFoodPos(foodPosition);  */
+    
+    objPosArrayList* playerPosList = myPlayer->getPlayerPos();
+    objPos currentHead;
+    playerPosList->getHeadElement(currentHead);
+
+    objPosArrayList* foodPosList = mainfoodRef->getFoodPos(); 
 
 
     int x = mainGameMechsRef->getBoardSizeX();
