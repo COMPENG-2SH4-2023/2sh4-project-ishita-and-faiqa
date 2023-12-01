@@ -2,9 +2,9 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
-#include "objPosArrayList.h"
 #include "Player.h"
 #include "Food.h"
+#include "objPosArrayList.h"
 
 
 using namespace std;
@@ -58,8 +58,9 @@ void Initialize(void)
     genFood = new Food(myGM); 
     
     srand(time(NULL)); 
-    
-    objPos tempPos{1, 1, 'o'};
+
+
+    objPos tempPos{1, 1, 'o'}; // we need to randomize later
     genFood -> generateFood(tempPos);
  // good for now, i have to wait on ishita
 
@@ -75,19 +76,17 @@ void RunLogic(void)
     myPlayer -> updatePlayerDir(); 
     myPlayer -> movePlayer();
     
- /*   objPos returnPlayerPos;
-    myPlayer->getPlayerPos(returnPlayerPos);
+    // objPos returnPlayerPos;
+    // myPlayer->getPlayerPos(returnPlayerPos);
 
-    objPos FoodPos;
-    genFood->getFoodPos(FoodPos);
+    // objPos FoodPos;
+    // genFood->getFoodPos(FoodPos);
 
-    if (returnPlayerPos.isPosEqual(&FoodPos))
-    {
-        genFood->generateFood(returnPlayerPos);
-        myGM->incrementScore(); 
-    }
-*/
-
+    // if (returnPlayerPos.isPosEqual(&FoodPos))
+    // {
+    //     genFood->generateFood(returnPlayerPos);
+    //     myGM->incrementScore(); 
+    // }
 // THIS IS FOR DEBUGGING PURPOSES KEEP HERE! 
 
 /*     switch (myGM -> getInput())
@@ -111,56 +110,51 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
-
-    bool drawn;
   
     int y, x; 
 
-    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    bool drawn;
+
+    objPosArrayList* playerBody= myPlayer->getPlayerPos();
     objPos tempBody;
 
     objPos FoodPos; 
     genFood -> getFoodPos(FoodPos); 
-
-   // MacUILib_printf("Board Size %dx%d\n",
-                  //  myGM -> getBoardSizeX(),
-                  //  myGM -> getBoardSizeY());
 
 
     for(y = 0; y < myGM -> getBoardSizeY(); y++)
     {
         for(x = 0; x < myGM -> getBoardSizeX(); x++)
         {
-            drawn = false; 
+            drawn = false;
 
-
-            for(int k = 0; k< playerBody-> getSize(); k++)// iterate through every element in the list
+            for(int k = 0; k < playerBody->getSize(); k++)
             {
-                playerBody->getElement(tempBody, k);
+                playerBody->getElement(tempBody,k);
                 if(tempBody.x == x && tempBody.y == y)
                 {
                     MacUILib_printf("%c", tempBody.symbol);
-                    drawn = true; 
-                    break; 
+                    drawn = true;
+                    break;
                 }
             }
 
-            if (drawn) continue; // if player body was dfrawnn dont draw anyting below
+            if(drawn) continue;
+
+
+            char printChar = ' ';
 
             if(y == 0 || x == 0 || x == myGM -> getBoardSizeX() - 1|| y == myGM -> getBoardSizeY() - 1)
             {
-                MacUILib_printf("%c", '#');
+                printChar = '#';
             }
             else if(x == FoodPos.x && y == FoodPos.y)
             {
-                MacUILib_printf("%c", FoodPos.symbol);
+                printChar = FoodPos.symbol; 
             }
-            else
-            {
-                MacUILib_printf("%c", ' ');
-            }
-        }
         
+            MacUILib_printf("%c", printChar);
+        }
         MacUILib_printf("\n");
     } 
 
@@ -169,7 +163,7 @@ void DrawScreen(void)
     MacUILib_printf("To exit the game, press ESC. \n"); 
     MacUILib_printf("Score: %d\n\n",myGM -> getScore());
     MacUILib_printf("Lose Flag is: %d\n\n",myGM -> getLoseFlagStatus());
-    
+   
 
 
 

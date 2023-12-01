@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "objPos.h"
+#include "objPosArrayList.h"
 
 Player::Player(GameMechs* thisGMRef)
 {
@@ -11,29 +12,30 @@ Player::Player(GameMechs* thisGMRef)
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
                       mainGameMechsRef->getBoardSizeY()/2,
                       '*');
-  
-    playerPosList = new objPosArrayList(); 
+
+    playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
 
-    //for debugging purposes 
+    // for debugging purposes 
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
     playerPosList->insertHead(tempPos);
-
-} 
+    
+}
 
 
 Player::~Player()
 {
     // delete any heap members here
-    delete playerPosList;
+    delete playerPosList; 
 }
 
 objPosArrayList* Player::getPlayerPos()
 {
-    return playerPosList;
+    //returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
     // return the reference to the playerPos arrray list
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -74,7 +76,7 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-    objPos newHead;
+ 
     objPos currentHead;
     playerPosList->getHeadElement(currentHead);
 
@@ -85,7 +87,7 @@ void Player::movePlayer()
     {
         case UP:
             currentHead.y--;
-            if(currentHead.y <= 0) // wraparound logic
+            if(currentHead.y <= 0)
             {
                 currentHead.y = y-2;
             }
@@ -93,7 +95,7 @@ void Player::movePlayer()
 
         case DOWN:
             currentHead.y++;
-            if(currentHead.y >= y) // wraparound logic
+            if(currentHead.y >= y)
             {
                 currentHead.y = 1;
             }
@@ -101,7 +103,7 @@ void Player::movePlayer()
 
         case LEFT:
             currentHead.x--;
-            if(currentHead.x <= 0) // wraparound logic
+            if(currentHead.x <= 0)
             {
                 currentHead.x = x-2;
             }
@@ -109,22 +111,18 @@ void Player::movePlayer()
 
         case RIGHT:
             currentHead.x++;
-            if(currentHead.x >= x) // wraparound logic
+            if(currentHead.x >= x)
             {
                 currentHead.x = 1;
             }
             break;
-        
-        case STOP:
+
         default:
             break;
     }
-    // new current head should be inserted to the head of the list
+
     playerPosList->insertHead(currentHead);
 
-
-    // then remove head
     playerPosList->removeTail();
-
 }
 

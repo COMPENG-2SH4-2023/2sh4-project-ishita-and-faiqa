@@ -11,7 +11,7 @@
 	void MacUILib_init(void);
 	void MacUILib_init_sync(void);
 	void MacUILib_Delay(int usec);
-	int MacUILib_makhasChar(void);
+	int MacUILib_hasChar(void);
 	char MacUILib_getChar(void);	
 	void MacUILib_clearScreen(void);
 	void MacUILib_uninit(void);
