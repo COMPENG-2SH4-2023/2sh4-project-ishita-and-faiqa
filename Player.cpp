@@ -7,18 +7,32 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.setObjPos(5,5,'*');
-}
+    objPos tempPos;
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
+                      mainGameMechsRef->getBoardSizeY()/2,
+                      '*');
+  
+    playerPosList = new objPosArrayList(); 
+    playerPosList->insertHead(tempPos);
+
+    //for debugging purposes 
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+    playerPosList->insertHead(tempPos);
+
+} 
 
 
 Player::~Player()
 {
     // delete any heap members here
+    delete playerPosList;
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+objPosArrayList* Player::getPlayerPos()
 {
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+    return playerPosList;
     // return the reference to the playerPos arrray list
 }
 
@@ -60,6 +74,9 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    objPos newHead;
+    objPos currentHead;
+    playerPosList->getHeadElement(currentHead);
 
     int x = mainGameMechsRef->getBoardSizeX();
     int y = mainGameMechsRef->getBoardSizeY();
@@ -67,39 +84,47 @@ void Player::movePlayer()
     switch(myDir)
     {
         case UP:
-            playerPos.y--;
-            if(playerPos.y <= 0)
+            currentHead.y--;
+            if(currentHead.y <= 0) // wraparound logic
             {
-                playerPos.y = y-2;
+                currentHead.y = y-2;
             }
             break;
 
         case DOWN:
-            playerPos.y++;
-            if(playerPos.y >= y)
+            currentHead.y++;
+            if(currentHead.y >= y) // wraparound logic
             {
-                playerPos.y = 1;
+                currentHead.y = 1;
             }
             break;
 
         case LEFT:
-            playerPos.x--;
-            if(playerPos.x <= 0)
+            currentHead.x--;
+            if(currentHead.x <= 0) // wraparound logic
             {
-                playerPos.x = x-2;
+                currentHead.x = x-2;
             }
             break;
 
         case RIGHT:
-            playerPos.x++;
-            if(playerPos.x >= x)
+            currentHead.x++;
+            if(currentHead.x >= x) // wraparound logic
             {
-                playerPos.x = 1;
+                currentHead.x = 1;
             }
             break;
-
+        
+        case STOP:
         default:
             break;
     }
+    // new current head should be inserted to the head of the list
+    playerPosList->insertHead(currentHead);
+
+
+    // then remove head
+    playerPosList->removeTail();
+
 }
 

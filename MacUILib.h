@@ -6,12 +6,12 @@
 
 	#include <stdio.h>
 	#include <stdlib.h>	
-	//#include <unistd.h>
+	#include <unistd.h>
 
 	void MacUILib_init(void);
 	void MacUILib_init_sync(void);
 	void MacUILib_Delay(int usec);
-	int MacUILib_hasChar(void);
+	int MacUILib_makhasChar(void);
 	char MacUILib_getChar(void);	
 	void MacUILib_clearScreen(void);
 	void MacUILib_uninit(void);
