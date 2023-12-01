@@ -8,25 +8,41 @@ Food::Food(GameMechs *thisGMRef)
 {
     FoodPos.setObjPos(-1, -1, 'o'); //intalized outside of the game board
     mainGameMechsRef = thisGMRef; 
-}
+    playerPosList = new objPosArrayList(); 
+}   
 
 Food::~Food()
 {
-
+    delete playerPosList; 
 }
 
-void Food::generateFood(objPos blockOff)
+objPosArrayList* Food::generateFood(objPosArrayList* playerPosList)
 {
     int x, y; 
     // generate random x and y coord and make sure they are not boarder or block off
+    bool overlap; 
+    objPos currentElm; 
 
     do 
     {
         srand(time(NULL)); 
+        overlap = false; 
 
         FoodPos.x = (rand() % (mainGameMechsRef -> getBoardSizeX() - 2)) + 1; 
         FoodPos.y = (rand() % (mainGameMechsRef -> getBoardSizeY() - 2)) + 1; 
-    } while (FoodPos.isPosEqual(&blockOff));
+        FoodPos.setObjPos(FoodPos.x, FoodPos.y, 'o');
+
+        for(int i = 0; i < playerPosList -> getSize(); i++)
+        {
+            playerPosList -> getElement(currentElm, i); 
+            if(currentElm.isPosEqual(&FoodPos))
+            {
+                overlap = true; 
+                break; 
+            }
+        }
+
+    } while (overlap); 
 
  /*        FoodPos.x = (rand() % (mainGameMechsRef -> getBoardSizeX() - 2)) + 1; 
         FoodPos.y = (rand() % (mainGameMechsRef -> getBoardSizeY() - 2)) + 1; 
@@ -56,5 +72,5 @@ void Food::generateFood(objPos blockOff)
 
 void Food::getFoodPos(objPos &returnPos)
 {
-    returnPos = FoodPos; 
+    returnPos.setObjPos(FoodPos); 
 }

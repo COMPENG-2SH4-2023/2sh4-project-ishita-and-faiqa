@@ -54,15 +54,24 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs(26,16); 
-    myPlayer = new Player(myGM, genFood);
     genFood = new Food(myGM); 
+
+    myPlayer = new Player(myGM, genFood);
     
     srand(time(NULL)); 
 
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    objPos FoodPos;
 
-    objPos tempPos(1, 1, 'o'); 
+    if (playerBody != nullptr)
+    {
+        genFood->generateFood(playerBody);
+    }
+
+
+    //objPos tempPos(1, 1, 'o'); 
     // we need to randomize later
-    genFood -> generateFood(tempPos);
+   // genFood -> generateFood(tempPos);
  // good for now, i have to wait on ishita
 
 }
@@ -77,6 +86,8 @@ void RunLogic(void)
     myPlayer -> updatePlayerDir(); 
     myPlayer -> movePlayer();
     
+    
+
     // objPos returnPlayerPos;
     // myPlayer->getPlayerPos(returnPlayerPos);
 
@@ -88,6 +99,8 @@ void RunLogic(void)
     //     genFood->generateFood(returnPlayerPos);
     //     myGM->incrementScore(); 
     // }
+
+
 // THIS IS FOR DEBUGGING PURPOSES KEEP HERE! 
 
 /*     switch (myGM -> getInput())
@@ -162,10 +175,18 @@ void DrawScreen(void)
 
     MacUILib_printf("Welcome to Moving Player: Using 'W' to move UP, 'A' to move LEFT, 'S' to move DOWN, and 'D' to move RIGHT!\n"); 
     MacUILib_printf("To exit the game, press ESC. \n"); 
-    MacUILib_printf("Score: %d\n\n",myGM -> getScore());
+    MacUILib_printf("Score: %d\n\n", myGM -> getScore());
     MacUILib_printf("Lose Flag is: %d\n\n",myGM -> getLoseFlagStatus());
    
-
+    playerBody->getHeadElement(tempBody);
+    MacUILib_printf("\nPlayer Head Position: <%d,%d>\n", tempBody.x, tempBody.y);
+   
+   if (myGM->getLoseFlagStatus() == true)
+    {
+        MacUILib_clearScreen();
+        MacUILib_printf("Game Over! You lost!\n");
+       // myGM->setExitTrue(); 
+    }
 
 
 }
@@ -179,7 +200,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+   // MacUILib_clearScreen();    
     
     delete myGM; 
     delete myPlayer; 

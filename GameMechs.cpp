@@ -68,12 +68,12 @@ int GameMechs::getScore()
 
 void GameMechs::setExitTrue()
 {
-    exitFlag = 1; 
+    exitFlag = true; 
 }
 
 void GameMechs::setLoseFlag()
 {
-    loseFlag = 1; 
+    loseFlag = true; 
     //cout << "Lose flag set. Game Over" << endl; 
 }
 

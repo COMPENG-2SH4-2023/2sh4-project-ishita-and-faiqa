@@ -7,7 +7,7 @@
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
-#include "Player.h"
+
 
 using namespace std;
 
@@ -16,12 +16,14 @@ class Food
     private: 
     objPos FoodPos; 
     GameMechs *mainGameMechsRef; 
+    objPosArrayList *playerPosList;
 
     public: 
     Food(GameMechs* thisGMRef);
     ~Food(); 
 
-    void generateFood(objPos blockOff); 
+    objPosArrayList* generateFood(objPosArrayList* playerPosList); // change this
+    
     void getFoodPos(objPos &returnPos); 
 
 }; 
